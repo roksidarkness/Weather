@@ -3,13 +3,12 @@ package com.roksidark.weatherforecast
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.roksidark.weatherforecast.ui.screens.ApplicationScreen
+import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.ui.theme.WeatherForecastApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,27 +16,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WeatherForecastApplicationTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                Scaffold(
+                    backgroundColor = Color.Transparent
                 ) {
-                    Greeting("Android")
+                    val systemUiController = rememberSystemUiController()
+
+                    // Set status bar color
+                    val primaryBackground = AppTheme.colors.primaryBackground
+                    SideEffect {
+                        systemUiController.setSystemBarsColor(
+                            color = primaryBackground,
+                            darkIcons = true
+                        )
+                    }
+                    ApplicationScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    WeatherForecastApplicationTheme {
-        Greeting("Android")
     }
 }
