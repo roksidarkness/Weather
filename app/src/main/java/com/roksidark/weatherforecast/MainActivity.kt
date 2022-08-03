@@ -10,8 +10,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.roksidark.weatherforecast.ui.screens.ApplicationScreen
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.ui.theme.WeatherForecastApplicationTheme
+import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : ComponentActivity() {
+class MainActivity : DaggerAppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
