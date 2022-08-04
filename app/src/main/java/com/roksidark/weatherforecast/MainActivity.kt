@@ -1,17 +1,23 @@
 package com.roksidark.weatherforecast
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.roksidark.weatherforecast.ui.screens.ApplicationScreen
+import com.roksidark.weatherforecast.ui.screens.weather.WeatherViewModel
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.ui.theme.WeatherForecastApplicationTheme
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity()  {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
