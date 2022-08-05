@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.launch
 import com.roksidark.weatherforecast.R
+import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.TAG
 
@@ -98,7 +99,7 @@ fun LocationScreen(
             //TODO add it
         }
     })
- */
+*/
 }
 
 
@@ -168,9 +169,10 @@ fun AddressEdit(
            // val isLoading by viewModel.isLoading.observeAsState(initial = true)
             val addressItems by viewModel.addressItems.observeAsState(initial = emptyList())
 
-            RepoList(addressItems = addressItems) { id ->
-               // navController.navigate(NavRoutes.Details.passAddressId(id))
-                //TODO it it
+            AddressList(addressItems = addressItems) { it ->
+                navController.navigate("${NavigationTree.Weather.name}/${it}") {
+                    popUpTo(NavigationTree.Weather.name)
+                }
             }
           //  if (isLoading) {
           //      LoadingBar()
@@ -182,7 +184,7 @@ fun AddressEdit(
 
 
 @Composable
-fun RepoList(
+fun AddressList(
     addressItems: List<AddressItem>,
     onItemClicked: (id: String) -> Unit = { }
 ) {
@@ -206,7 +208,7 @@ fun AddressItemRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-            .clickable { onItemClicked(item.id) }
+            .clickable { onItemClicked(item.address) }
     ) {
         Row(modifier = Modifier.animateContentSize()) {
             Box() {
