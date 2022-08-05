@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">WeatherForecastApplication</string>
+
+    <!-- Location screen-->
+    <string name="label_location_add">Add location:</string>
 </resources>

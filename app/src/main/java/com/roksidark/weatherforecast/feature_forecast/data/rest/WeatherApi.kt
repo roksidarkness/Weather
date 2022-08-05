@@ -1,6 +1,6 @@
 package com.roksidark.weatherforecast.feature_forecast.data.rest
 
-import WeatherForecast
+import com.roksidark.weatherforecast.feature_forecast.data.model.weather.WeatherForecastItem
 import retrofit2.http.*
 
 interface WeatherApi {
@@ -9,5 +9,5 @@ interface WeatherApi {
     suspend fun getWeatherForecast(
         @Query("key") key: String,
         @Query("city") clientSecret: String
-    ): WeatherForecast
+    ): WeatherForecastItem
 }

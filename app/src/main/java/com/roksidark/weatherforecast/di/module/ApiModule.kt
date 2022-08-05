@@ -1,6 +1,9 @@
 package com.roksidark.weatherforecast.di.module
 
-import com.roksidark.weatherforecast.feature_forecast.data.data.repository.RemoteRepositoryImpl
+import android.app.Application
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.roksidark.weatherforecast.feature_forecast.data.repository.RemoteRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.data.rest.WeatherApi
 import com.roksidark.weatherforecast.feature_forecast.domain.repository.RemoteRepository
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.GetWeatherRemotely
@@ -59,4 +62,9 @@ object ApiModule {
             getWeatherForecastRemotely = GetWeatherRemotely(remoteRepository),
         )
     }
+
+    @Provides
+    @Singleton
+    fun providePlaceClient(application: Application): PlacesClient =
+        Places.createClient(application.applicationContext)
 }

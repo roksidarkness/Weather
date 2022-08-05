@@ -1,11 +1,11 @@
 package com.roksidark.weatherforecast.feature_forecast.domain.repository
 
-import WeatherForecast
+import com.roksidark.weatherforecast.feature_forecast.data.model.weather.WeatherForecastItem
 
 interface RemoteRepository {
 
     suspend fun getWeatherForecast(
         key: String,
         city: String
-    ): WeatherForecast
+    ): WeatherForecastItem
 }

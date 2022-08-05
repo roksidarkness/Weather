@@ -1,6 +1,8 @@
+package com.roksidark.weatherforecast.feature_forecast.data.model.weather
+
 import com.google.gson.annotations.SerializedName
 
-data class Weather (
+data class WeatherItem (
 	@SerializedName("icon") val icon : String,
 	@SerializedName("code") val code : Int,
 	@SerializedName("description") val description : String

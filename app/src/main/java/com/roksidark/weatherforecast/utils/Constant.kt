@@ -16,4 +16,15 @@ object Constant {
     //Pref
     const val PREFERENCE_NAME = "weather_preference"
 
+    //Bundle
+    const val BUNDLE_KEY = "keyValue"
+
+    //Address components
+    const val COUNTRY = "country"
+    const val POSTAL= "postal_code"
+    const val LOCALITY = "locality"
+    const val ADMINISTRATIVE_AREA_LEVEL_1 = "administrative_area_level_1"
+    const val STREET_NUMBER = "street_number"
+    const val ROUTE = "route"
+
 }
