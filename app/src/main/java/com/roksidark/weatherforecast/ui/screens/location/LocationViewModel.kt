@@ -15,6 +15,7 @@ import com.roksidark.weatherforecast.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,10 +36,16 @@ class LocationViewModel @Inject constructor(
     var placePredictions = _placePredictions.asStateFlow()
     var showProgressBar = _showProgressBar.asStateFlow()
 
+    private var _addressItems = MutableLiveData<List<Location>>()
+    val addressItems: LiveData<List<Location>> = _addressItems
 
-    private var _list: MutableList<AddressItem>  = mutableListOf()
-    private var _addressItems = MutableLiveData<List<AddressItem>>()
-    val addressItems: LiveData<List<AddressItem>> = _addressItems
+    init{
+        viewModelScope.launch {
+            useCases.getLocationsLocal.invoke().collect {
+                _addressItems.value = it
+            }
+        }
+    }
 
     fun getPlacePredictions(query: String) {
         _address.value.streetAddress = query
@@ -56,7 +63,8 @@ class LocationViewModel @Inject constructor(
                         placePredictionsResult.exception
                     )
                 }
-                else -> {//does not apply here
+                else -> {
+                    Log.d(TAG, "Unexpected result")
                 }
             }
         }
@@ -73,19 +81,9 @@ class LocationViewModel @Inject constructor(
                     val addressFromPlace = addressResult.data
                     if (addressFromPlace != null) {
                         _address.value = addressFromPlace
-                        _list.add(_address.value)
-                        _addressItems.postValue(_list)
 
-                        val loc = Location(addressFromPlace.address)
-                        useCases.saveLocationLocal(loc)
-                        val list = useCases.getLocationsLocal.invoke()
-
-                        list.collect {
-                            it ->
-                            Log.d(TAG, "DATA DB:$it")
-                        }
+                        saveLocationDb()
                     }
-
                     clearPredictions()
                 }
 
@@ -97,6 +95,7 @@ class LocationViewModel @Inject constructor(
                     )
                 }
                 else -> {
+                    Log.d(TAG, "Unexpected result")
                 }
             }
         }
@@ -111,5 +110,13 @@ class LocationViewModel @Inject constructor(
 
     private fun clearPredictions() {
         _placePredictions.value = mutableListOf()
+    }
+
+    private suspend fun saveLocationDb (){
+        val location = Location(_address.value.id,
+            _address.value.address,
+            _address.value.latitude.toString(),
+            _address.value.longitude.toString())
+        useCases.saveLocationLocal(location)
     }
 }

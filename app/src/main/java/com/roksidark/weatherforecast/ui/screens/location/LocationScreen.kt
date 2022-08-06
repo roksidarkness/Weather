@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.launch
 import com.roksidark.weatherforecast.R
+import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.TAG
@@ -185,7 +186,7 @@ fun AddressEdit(
 
 @Composable
 fun AddressList(
-    addressItems: List<AddressItem>,
+    addressItems: List<Location>,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     LazyColumn(
@@ -199,7 +200,7 @@ fun AddressList(
 
 @Composable
 fun AddressItemRow(
-    item: AddressItem,
+    item: Location,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     Card(
@@ -231,7 +232,7 @@ fun AddressItemRow(
 
 @Composable
 fun RepoItemDetails(
-    item: AddressItem,
+    item: Location,
     modifier: Modifier
 ) {
     Log.d(TAG, item.toString())
