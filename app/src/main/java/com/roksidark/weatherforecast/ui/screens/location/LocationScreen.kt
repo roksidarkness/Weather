@@ -227,7 +227,6 @@ fun AddressItemRow(
             }
             RepoItemDetails(
                 item = item,
-                viewModel = viewModel,
                 modifier = Modifier
                     .padding(
                         start = 20.dp,
@@ -245,7 +244,6 @@ fun AddressItemRow(
 @Composable
 fun RepoItemDetails(
     item: Location,
-    viewModel: LocationViewModel,
     modifier: Modifier
 ) {
     Log.d(TAG, item.toString())

@@ -38,7 +38,6 @@ fun WeatherScreen(
     viewModel: LocationViewModel,
     navController: NavController
 ) {
-
     val location by viewModel.location.observeAsState()
 
     location?.let {
@@ -108,7 +107,8 @@ fun WeatherForecastItemRow(
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
             .clickable {
-                onItemClicked(item.datetime)
+                onItemClicked(item.valid_date)
+                viewModel.getWeatherDetails(item.valid_date)
             }
     ) {
         Row(modifier = Modifier.animateContentSize()) {
@@ -158,7 +158,7 @@ fun WeatherForecastItemDetails(
         }
 
         Text(
-            text = item.temp.toString(),
+            text = item.max_temp.toString(),
             modifier = Modifier,
             textAlign = TextAlign.Right,
             color = AppTheme.colors.headerTextColor,

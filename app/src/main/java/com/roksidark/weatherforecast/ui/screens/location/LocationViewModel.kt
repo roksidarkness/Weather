@@ -9,7 +9,6 @@ import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
-import com.roksidark.weatherforecast.feature_forecast.data.model.weather.WeatherForecastItem
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
 import com.roksidark.weatherforecast.utils.Constant
@@ -50,6 +49,9 @@ class LocationViewModel @Inject constructor(
 
     private var _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private var _weatherForecastItem = MutableLiveData<DataItem>()
+    val weatherForecastItem: LiveData<DataItem> = _weatherForecastItem
 
     init{
         viewModelScope.launch {
@@ -136,11 +138,11 @@ class LocationViewModel @Inject constructor(
         viewModelScope.launch {
             _location.value = useCases.getLocationLocal(id)
             Log.d(TAG, _location.value.toString())
-            getWeatherForecast()
+            getWeatherForecastList()
         }
     }
 
-    private fun getWeatherForecast() {
+    private fun getWeatherForecastList() {
         try {
             _location.value?.let {
                 viewModelScope.launch {
@@ -153,6 +155,16 @@ class LocationViewModel @Inject constructor(
             }
         } catch (error: Exception) {
             error.localizedMessage?.let { Log.d(TAG, it) }
+        }
+    }
+
+    fun getWeatherDetails(date: String) {
+        _weatherForecastItems.value?.let { it ->
+            it.forEach { item ->
+                if (item.valid_date == date){
+                    _weatherForecastItem .postValue(item)
+                }
+            }
         }
     }
 }

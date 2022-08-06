@@ -32,7 +32,8 @@ fun ApplicationScreen() {
                 viewModel = viewModelLocation, navController)
         }
         composable("${NavigationTree.Details.name}/{selected_weather}") { backStackEntry ->
-            DetailsScreen(backStackEntry.arguments?.getString("selected_weather").orEmpty())
+            DetailsScreen(backStackEntry.arguments?.getString("selected_weather").orEmpty(),
+                viewModel = viewModelLocation)
         }
     }
 }
