@@ -10,6 +10,7 @@ import com.roksidark.weatherforecast.feature_forecast.data.model.location.Addres
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
+import com.roksidark.weatherforecast.utils.Constant
 import com.roksidark.weatherforecast.utils.Constant.TAG
 import com.roksidark.weatherforecast.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +36,10 @@ class LocationViewModel @Inject constructor(
     var address = _address.asStateFlow()
     var placePredictions = _placePredictions.asStateFlow()
     var showProgressBar = _showProgressBar.asStateFlow()
+
+
+    private var _location = MutableLiveData<Location>()
+    val location: LiveData<Location> = _location
 
     private var _addressItems = MutableLiveData<List<Location>>()
     val addressItems: LiveData<List<Location>> = _addressItems
@@ -118,5 +123,24 @@ class LocationViewModel @Inject constructor(
             _address.value.latitude.toString(),
             _address.value.longitude.toString())
         useCases.saveLocationLocal(location)
+    }
+
+    private fun getWeatherForecast() {
+        try {
+            viewModelScope.launch {
+                val data = useCases.getWeatherForecastRemotely.invoke(
+                    Constant.API_KEY, "Warszawa,PL")
+                Log.d(TAG, data.toString())
+            }
+        } catch (error: Exception) {
+            error.localizedMessage?.let { Log.d(TAG, it) }
+        }
+    }
+
+    fun getLocation(id: String){
+        viewModelScope.launch {
+            _location.value = useCases.getLocationLocal(id)
+            Log.d(TAG, _location.value.toString())
+        }
     }
 }

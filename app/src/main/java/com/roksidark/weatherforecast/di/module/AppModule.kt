@@ -11,10 +11,7 @@ import com.roksidark.weatherforecast.feature_forecast.data.repository.RemoteRepo
 import com.roksidark.weatherforecast.feature_forecast.data.rest.WeatherApi
 import com.roksidark.weatherforecast.feature_forecast.domain.repository.LocalRepository
 import com.roksidark.weatherforecast.feature_forecast.domain.repository.RemoteRepository
-import com.roksidark.weatherforecast.feature_forecast.domain.usecase.GetLocationsLocal
-import com.roksidark.weatherforecast.feature_forecast.domain.usecase.GetWeatherRemotely
-import com.roksidark.weatherforecast.feature_forecast.domain.usecase.SaveLocationLocal
-import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
+import com.roksidark.weatherforecast.feature_forecast.domain.usecase.*
 import com.roksidark.weatherforecast.utils.Constant
 import com.roksidark.weatherforecast.utils.Constant.DATABASE_NAME
 import dagger.Module
@@ -87,7 +84,8 @@ object AppModule {
         return WeatherUseCases(
             getWeatherForecastRemotely = GetWeatherRemotely(remoteRepository),
             saveLocationLocal = SaveLocationLocal(localRepository),
-            getLocationsLocal = GetLocationsLocal(localRepository)
+            getLocationsLocal = GetLocationsLocal(localRepository),
+            getLocationLocal = GetLocationLocal(localRepository)
         )
     }
 

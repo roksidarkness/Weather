@@ -7,29 +7,35 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
-import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
-import com.roksidark.weatherforecast.ui.component.AutoCompleteUI
-import com.roksidark.weatherforecast.ui.screens.textResource
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import kotlinx.coroutines.launch
 import com.roksidark.weatherforecast.R
 import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
+import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
+import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
+import com.roksidark.weatherforecast.ui.component.AutoCompleteUI
+import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction
+import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.TAG
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -167,17 +173,17 @@ fun AddressEdit(
         }
 
         Box {
-           // val isLoading by viewModel.isLoading.observeAsState(initial = true)
+            // val isLoading by viewModel.isLoading.observeAsState(initial = true)
             val addressItems by viewModel.addressItems.observeAsState(initial = emptyList())
 
-            AddressList(addressItems = addressItems) { it ->
+            AddressList(addressItems = addressItems, viewModel = viewModel) { it ->
                 navController.navigate("${NavigationTree.Weather.name}/${it}") {
                     popUpTo(NavigationTree.Weather.name)
                 }
             }
-          //  if (isLoading) {
-          //      LoadingBar()
-          //  }
+            //  if (isLoading) {
+            //      LoadingBar()
+            //  }
         }
     }
 
@@ -187,13 +193,14 @@ fun AddressEdit(
 @Composable
 fun AddressList(
     addressItems: List<Location>,
+    viewModel: LocationViewModel,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     LazyColumn(
         contentPadding = PaddingValues(bottom = 16.dp)
     ) {
         items(addressItems) { item ->
-            AddressItemRow(item = item, onItemClicked = onItemClicked)
+            AddressItemRow(item = item, viewModel = viewModel, onItemClicked = onItemClicked)
         }
     }
 }
@@ -201,6 +208,7 @@ fun AddressList(
 @Composable
 fun AddressItemRow(
     item: Location,
+    viewModel: LocationViewModel,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     Card(
@@ -209,13 +217,17 @@ fun AddressItemRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-            .clickable { onItemClicked(item.address) }
+            .clickable {
+                viewModel.getLocation(item.id)
+                onItemClicked(item.id)
+            }
     ) {
         Row(modifier = Modifier.animateContentSize()) {
             Box() {
             }
             RepoItemDetails(
                 item = item,
+                viewModel = viewModel,
                 modifier = Modifier
                     .padding(
                         start = 20.dp,
@@ -233,6 +245,7 @@ fun AddressItemRow(
 @Composable
 fun RepoItemDetails(
     item: Location,
+    viewModel: LocationViewModel,
     modifier: Modifier
 ) {
     Log.d(TAG, item.toString())

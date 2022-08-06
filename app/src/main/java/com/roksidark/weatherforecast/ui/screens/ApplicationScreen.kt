@@ -21,7 +21,6 @@ fun ApplicationScreen() {
 
     val navController = rememberNavController()
     val viewModelLocation = hiltViewModel<LocationViewModel>()
-    val viewModelWeather = hiltViewModel<WeatherViewModel>()
 
     NavHost(navController = navController, startDestination = NavigationTree.Splash.name) {
 
@@ -31,7 +30,7 @@ fun ApplicationScreen() {
         }
         composable("${NavigationTree.Weather.name}/{location}") { backStackEntry ->
             WeatherScreen(backStackEntry.arguments?.getString("location").orEmpty(),
-                viewModel = viewModelWeather, navController)
+                viewModel = viewModelLocation, navController)
         }
         composable("${NavigationTree.Details.name}/{selected_weather}") { backStackEntry ->
             DetailsScreen(backStackEntry.arguments?.getString("selected_weather").orEmpty())

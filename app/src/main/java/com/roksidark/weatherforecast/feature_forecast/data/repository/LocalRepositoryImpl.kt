@@ -13,6 +13,10 @@ class LocalRepositoryImpl @Inject constructor(
         return db.locationDao().getAll()
     }
 
+    override suspend fun getLocationById(id: String): Location {
+        return db.locationDao().getLocationById(id)
+    }
+
     override suspend fun saveLocation(location: Location) {
         db.locationDao().insert(location)
     }

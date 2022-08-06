@@ -18,4 +18,7 @@ interface LocationDao {
 
     @Query("DELETE FROM location")
     suspend fun deleteAll()
+
+    @Query("select * from location where id = :id")
+    suspend fun getLocationById(id: String): Location
 }
