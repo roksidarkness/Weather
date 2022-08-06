@@ -5,20 +5,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
+import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
 import com.roksidark.weatherforecast.utils.Constant.TAG
+import com.roksidark.weatherforecast.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.roksidark.weatherforecast.utils.Result
 
 @HiltViewModel
 class LocationViewModel @Inject constructor(
-    private val remotePlaceRepository: RemotePlaceRepositoryImpl
+    //TODO remove remotePlaceRepository
+    private val remotePlaceRepository: RemotePlaceRepositoryImpl,
+    private val useCases: WeatherUseCases
 ) : ViewModel() {
 
     private var _address: MutableStateFlow<AddressItem> = MutableStateFlow(AddressItem())
@@ -71,6 +75,15 @@ class LocationViewModel @Inject constructor(
                         _address.value = addressFromPlace
                         _list.add(_address.value)
                         _addressItems.postValue(_list)
+
+                        val loc = Location(addressFromPlace.address)
+                        useCases.saveLocationLocal(loc)
+                        val list = useCases.getLocationsLocal.invoke()
+
+                        list.collect {
+                            it ->
+                            Log.d(TAG, "DATA DB:$it")
+                        }
                     }
 
                     clearPredictions()

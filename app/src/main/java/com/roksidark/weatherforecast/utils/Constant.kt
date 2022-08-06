@@ -11,7 +11,7 @@ object Constant {
     const val API_KEY = "618295a878264b99b150d7a5abaccdcb"
 
     //Database
-    const val DATABASE_NAME = "weather.db"
+    const val DATABASE_NAME = "weather_db"
 
     //Pref
     const val PREFERENCE_NAME = "weather_preference"
