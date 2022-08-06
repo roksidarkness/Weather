@@ -14,7 +14,6 @@ import com.roksidark.weatherforecast.ui.screens.location.LocationScreen
 import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
 import com.roksidark.weatherforecast.ui.screens.splash.SplashScreen
 import com.roksidark.weatherforecast.ui.screens.weather.WeatherScreen
-import com.roksidark.weatherforecast.ui.screens.weather.WeatherViewModel
 
 @Composable
 fun ApplicationScreen() {

@@ -8,6 +8,7 @@ interface WeatherApi {
     @GET("/v2.0/forecast/daily/")
     suspend fun getWeatherForecast(
         @Query("key") key: String,
-        @Query("city") clientSecret: String
+        @Query("lat") lat: String,
+        @Query("lon") lon: String
     ): WeatherForecastItem
 }

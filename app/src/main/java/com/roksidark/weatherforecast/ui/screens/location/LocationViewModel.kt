@@ -125,22 +125,25 @@ class LocationViewModel @Inject constructor(
         useCases.saveLocationLocal(location)
     }
 
-    private fun getWeatherForecast() {
-        try {
-            viewModelScope.launch {
-                val data = useCases.getWeatherForecastRemotely.invoke(
-                    Constant.API_KEY, "Warszawa,PL")
-                Log.d(TAG, data.toString())
-            }
-        } catch (error: Exception) {
-            error.localizedMessage?.let { Log.d(TAG, it) }
-        }
-    }
-
     fun getLocation(id: String){
         viewModelScope.launch {
             _location.value = useCases.getLocationLocal(id)
             Log.d(TAG, _location.value.toString())
+            getWeatherForecast()
+        }
+    }
+
+    private fun getWeatherForecast() {
+        try {
+            _location.value?.let {
+                viewModelScope.launch {
+                    val data = useCases.getWeatherForecastRemotely.invoke(
+                        Constant.API_KEY, it.latitude, it.longitude)
+                    Log.d(TAG, data.toString())
+                }
+            }
+        } catch (error: Exception) {
+            error.localizedMessage?.let { Log.d(TAG, it) }
         }
     }
 }

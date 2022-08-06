@@ -7,7 +7,7 @@ import com.roksidark.weatherforecast.feature_forecast.domain.repository.RemoteRe
 class GetWeatherRemotely(
     private val repository: RemoteRepository
 ) {
-    suspend fun invoke(key: String, city: String): WeatherForecastItem {
-        return repository.getWeatherForecast(key, city)
+    suspend fun invoke(key: String, lat: String, lon: String): WeatherForecastItem {
+        return repository.getWeatherForecast(key, lat, lon)
     }
 }

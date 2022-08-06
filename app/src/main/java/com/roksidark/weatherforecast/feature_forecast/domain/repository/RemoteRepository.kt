@@ -6,6 +6,7 @@ interface RemoteRepository {
 
     suspend fun getWeatherForecast(
         key: String,
-        city: String
+        lat: String,
+        lon: String
     ): WeatherForecastItem
 }
