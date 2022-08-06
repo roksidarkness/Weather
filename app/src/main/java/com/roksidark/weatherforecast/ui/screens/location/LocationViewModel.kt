@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
+import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
+import com.roksidark.weatherforecast.feature_forecast.data.model.weather.WeatherForecastItem
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
 import com.roksidark.weatherforecast.utils.Constant
@@ -16,7 +18,6 @@ import com.roksidark.weatherforecast.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,6 +44,12 @@ class LocationViewModel @Inject constructor(
 
     private var _addressItems = MutableLiveData<List<Location>>()
     val addressItems: LiveData<List<Location>> = _addressItems
+
+    private var _weatherForecastItems = MutableLiveData<List<DataItem>>()
+    val weatherForecastItems: LiveData<List<DataItem>> = _weatherForecastItems
+
+    private var _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
     init{
         viewModelScope.launch {
@@ -139,7 +146,9 @@ class LocationViewModel @Inject constructor(
                 viewModelScope.launch {
                     val data = useCases.getWeatherForecastRemotely.invoke(
                         Constant.API_KEY, it.latitude, it.longitude)
-                    Log.d(TAG, data.toString())
+                    _weatherForecastItems.value = data.data
+                    _isLoading.value = false
+                    Log.d(TAG, data.city_name)
                 }
             }
         } catch (error: Exception) {
