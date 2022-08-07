@@ -89,24 +89,6 @@ fun LocationScreen(
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
-
-/*
-    LaunchedEffect(key1 = viewState.value.loginAction) {
-        when (val action = viewState.value.loginAction) {
-            is LoginAction.OpenDashboard -> {
-                navController.navigate("${NavigationTree.Main.name}/${action.username}") {
-                    popUpTo(NavigationTree.Login.name)
-                }
-            }
-        }
-    }
-
-    DisposableEffect(key1 = Unit, effect = {
-        onDispose {
-            //TODO add it
-        }
-    })
-*/
 }
 
 
