@@ -9,6 +9,7 @@ interface WeatherApi {
     suspend fun getWeatherForecast(
         @Query("key") key: String,
         @Query("lat") lat: String,
-        @Query("lon") lon: String
+        @Query("lon") lon: String,
+        @Query("days") days: Int
     ): WeatherForecastItem
 }

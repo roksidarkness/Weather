@@ -12,6 +12,7 @@ import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataIte
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
 import com.roksidark.weatherforecast.utils.Constant
+import com.roksidark.weatherforecast.utils.Constant.PARAMETER_DAYS
 import com.roksidark.weatherforecast.utils.Constant.TAG
 import com.roksidark.weatherforecast.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -147,7 +148,7 @@ class LocationViewModel @Inject constructor(
             _location.value?.let {
                 viewModelScope.launch {
                     val data = useCases.getWeatherForecastRemotely.invoke(
-                        Constant.API_KEY, it.latitude, it.longitude)
+                        Constant.API_KEY, it.latitude, it.longitude, PARAMETER_DAYS)
                     _weatherForecastItems.value = data.data
                     _isLoading.value = false
                     Log.d(TAG, data.city_name)

@@ -6,15 +6,13 @@ object Constant {
 
     //Base url
     const val BASE_URL = "https://api.weatherbit.io/"
+    const val PARAMETER_DAYS = 7
 
     //Keys
     const val API_KEY = "618295a878264b99b150d7a5abaccdcb" // trial 1 month // TODO replace to local.properties
 
     //Database
     const val DATABASE_NAME = "weather_db"
-
-    //Pref
-    const val PREFERENCE_NAME = "weather_preference"
 
     //Bundle
     const val BUNDLE_KEY = "keyValue"
