@@ -1,8 +1,6 @@
 package com.roksidark.weatherforecast.ui.screens.weather
 
 import android.annotation.SuppressLint
-import android.text.format.DateFormat
-import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -29,13 +27,8 @@ import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataIte
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
 import com.roksidark.weatherforecast.ui.theme.AppTheme
-import com.roksidark.weatherforecast.utils.Constant
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_URL
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 @Composable
 fun WeatherScreen(

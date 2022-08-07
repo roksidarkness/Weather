@@ -30,7 +30,7 @@ import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
-import com.roksidark.weatherforecast.ui.component.AutoCompleteUI
+import com.roksidark.weatherforecast.ui.component.AutoCompleteEditText
 import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction
 import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
@@ -124,21 +124,7 @@ fun AddressEdit(
         modifier = modifier.padding(top = 2.dp, bottom = 2.dp),
         verticalArrangement = Arrangement.Center
     ) {
-
-        Text(
-            text = textResource(id = R.string.label_location_add).toString(),
-            color = AppTheme.colors.primaryTextColor,
-            modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    end = 2.dp,
-                    top = 2.dp,
-                    bottom = 16.dp
-                ),
-            fontSize = 22.sp
-        )
-
-        AutoCompleteUI(
+        AutoCompleteEditText(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -149,7 +135,7 @@ fun AddressEdit(
                 ),
             query = addressItem.streetAddress,
             useOutlined = true,
-            queryLabel = "Search",
+            queryLabel = textResource(id = R.string.label_location_search).toString(),
             onQueryChanged = { updatedAddress ->
                 addressItem.streetAddress = updatedAddress
                 locationAction(LocationAction.OnLocationChange(updatedAddress))

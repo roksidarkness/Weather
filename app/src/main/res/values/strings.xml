@@ -2,5 +2,5 @@
     <string name="app_name">WeatherForecastApplication</string>
 
     <!-- Location screen-->
-    <string name="label_location_add">Add location:</string>
+    <string name="label_location_search">Search location</string>
 </resources>

@@ -20,9 +20,10 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.roksidark.weatherforecast.ui.theme.AppTheme
 
 @Composable
-fun <T> AutoCompleteUI(
+fun <T> AutoCompleteEditText(
     modifier: Modifier,
     query: String,
     queryLabel: String,
@@ -109,23 +110,24 @@ fun QuerySearch(
             trailingIcon = {
                 if (showClearButton) {
                     IconButton(onClick = {
-
                         onClearClick()
                     }) {
                         Icon(imageVector = Icons.Filled.Close, contentDescription = "Clear")
                     }
                 }
-
             },
             keyboardActions = KeyboardActions(onDone = {
-
                 onDoneActionClick()
             }),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text
             ),
-            colors = colors ?: TextFieldDefaults.outlinedTextFieldColors()
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = AppTheme.colors.primaryBackground,
+                focusedLabelColor = AppTheme.colors.primaryBackground,
+                cursorColor = AppTheme.colors.primaryBackground,
+                unfocusedBorderColor = AppTheme.colors.primaryBackground)
         )
 
     } else {
@@ -156,7 +158,11 @@ fun QuerySearch(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text
             ),
-            colors = colors ?: TextFieldDefaults.textFieldColors()
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = AppTheme.colors.primaryBackground,
+                focusedLabelColor = AppTheme.colors.primaryBackground,
+                cursorColor = AppTheme.colors.primaryBackground,
+                unfocusedBorderColor = AppTheme.colors.primaryBackground)
         )
     }
 }
