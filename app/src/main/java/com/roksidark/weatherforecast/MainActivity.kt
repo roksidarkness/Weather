@@ -1,10 +1,10 @@
 package com.roksidark.weatherforecast
 
-import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.SideEffect
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -12,12 +12,16 @@ import com.google.android.libraries.places.api.Places
 import com.roksidark.weatherforecast.ui.screens.ApplicationScreen
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.ui.theme.WeatherForecastApplicationTheme
-import com.roksidark.weatherforecast.utils.Constant.BUNDLE_KEY
+import com.roksidark.weatherforecast.utils.getTime
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity()  {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

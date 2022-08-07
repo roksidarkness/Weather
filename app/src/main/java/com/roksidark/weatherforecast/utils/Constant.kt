@@ -13,9 +13,6 @@ object Constant {
     //Database
     const val DATABASE_NAME = "weather_db"
 
-    //Bundle
-    const val BUNDLE_KEY = "keyValue"
-
     //Address components
     const val COUNTRY = "country"
     const val POSTAL= "postal_code"

@@ -1,6 +1,5 @@
 package com.roksidark.weatherforecast.ui.screens.details
 
-import android.text.format.Time
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,7 +17,8 @@ import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
 import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant
-import java.util.*
+import com.roksidark.weatherforecast.utils.getTime
+
 
 @Composable
 fun DetailsScreen(
@@ -26,9 +26,10 @@ fun DetailsScreen(
     viewModel: LocationViewModel
 ) {
     val weather by viewModel.weatherForecastItem.observeAsState()
+    val location by viewModel.locationCurrent.observeAsState()
 
     weather?.let{
-        item ->
+            item ->
         Box(modifier = Modifier.fillMaxSize()) {
             Card(
                 shape = RoundedCornerShape(8.dp),
@@ -89,15 +90,17 @@ fun DetailsScreen(
                         textLabel = textResource(id =
                         R.string.label_weather_details_uv_index).toString())
 
-                    TextDetails(text = item.sunrise_ts.toString(),
-                        degree = "",
-                        textLabel = textResource(id =
-                        R.string.label_weather_details_sunrise_time).toString())
+                    location?.let {
+                        TextDetails(text = getTime(it.timezone, item.sunrise_ts.toLong()),
+                            degree = "",
+                            textLabel = textResource(id =
+                            R.string.label_weather_details_sunrise_time).toString())
 
-                    TextDetails(text = item.sunrise_ts.toString(),
-                        degree = "",
-                        textLabel = textResource(id =
-                        R.string.label_weather_details_sunset_time).toString())
+                        TextDetails(text = getTime(it.timezone, item.sunset_ts.toLong()),
+                            degree = "",
+                            textLabel = textResource(id =
+                            R.string.label_weather_details_sunset_time).toString())
+                    }
 
                 }
             }

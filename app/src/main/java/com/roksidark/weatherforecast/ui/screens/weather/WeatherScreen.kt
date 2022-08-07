@@ -1,6 +1,5 @@
 package com.roksidark.weatherforecast.ui.screens.weather
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,6 +30,7 @@ import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_URL
+import com.roksidark.weatherforecast.utils.getDayOfWeek
 
 @Composable
 fun WeatherScreen(
@@ -146,7 +146,7 @@ fun WeatherForecastItemDetails(
         )) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = item.valid_date,
+                text = getDayOfWeek(item.valid_date) + ", "+ item.valid_date,
                 modifier = Modifier,
                 textAlign = TextAlign.Left,
                 color = AppTheme.colors.headerTextColor,
