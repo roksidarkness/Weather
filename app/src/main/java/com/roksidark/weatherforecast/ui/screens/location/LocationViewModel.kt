@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.roksidark.weatherforecast.BuildConfig
 import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
@@ -148,7 +149,7 @@ class LocationViewModel @Inject constructor(
             _location.value?.let {
                 viewModelScope.launch {
                     val data = useCases.getWeatherForecastRemotely.invoke(
-                        Constant.API_KEY, it.latitude, it.longitude, PARAMETER_DAYS)
+                        BuildConfig.API_KEY, it.latitude, it.longitude, PARAMETER_DAYS)
                     _weatherForecastItems.value = data.data
                     _isLoading.value = false
                     Log.d(TAG, data.data[0].weather.toString())

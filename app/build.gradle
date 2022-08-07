@@ -7,6 +7,9 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdk 32
 
@@ -50,10 +53,8 @@ android {
     }
 
     defaultConfig {
-        Properties properties = new Properties()
-
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        manifestPlaceholders = [KEY: "${properties.getProperty('KEY')}"]
+        buildConfigField "String", "PLACE_API_KEY",localProperties['PLACE_API_KEY']
+        buildConfigField "String", "API_KEY",localProperties['API_KEY']
     }
 }
 

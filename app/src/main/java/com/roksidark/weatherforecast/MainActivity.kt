@@ -43,13 +43,9 @@ class MainActivity : ComponentActivity()  {
     }
 
     private fun initPlaces(){
-        val applicationInfo = applicationContext.packageManager
-            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
-        val value = applicationInfo.metaData[BUNDLE_KEY]
-        val key = value.toString()
 
         if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, key)
+            Places.initialize(applicationContext, BuildConfig.PLACE_API_KEY)
         }
     }
 }

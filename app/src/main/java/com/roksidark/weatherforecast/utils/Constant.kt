@@ -10,9 +10,6 @@ object Constant {
     const val IMAGE_URL = "https://www.weatherbit.io/static/img/icons/"
     const val IMAGE_FORMAT = ".png"
 
-    //Keys
-    const val API_KEY = "618295a878264b99b150d7a5abaccdcb" // trial 1 month // TODO replace to local.properties
-
     //Database
     const val DATABASE_NAME = "weather_db"
 
