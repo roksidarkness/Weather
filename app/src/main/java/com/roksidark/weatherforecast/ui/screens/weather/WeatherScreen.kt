@@ -1,7 +1,10 @@
 package com.roksidark.weatherforecast.ui.screens.weather
 
+import android.annotation.SuppressLint
+import android.text.format.DateFormat
 import android.util.Log
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,7 +14,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,17 +24,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.roksidark.weatherforecast.R
-import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
+import coil.compose.rememberImagePainter
 import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
-import com.roksidark.weatherforecast.feature_forecast.data.model.weather.WeatherForecastItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
-import com.roksidark.weatherforecast.ui.screens.location.*
-import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction
-import com.roksidark.weatherforecast.ui.screens.textResource
+import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant
-import kotlinx.coroutines.launch
+import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
+import com.roksidark.weatherforecast.utils.Constant.IMAGE_URL
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun WeatherScreen(
@@ -42,7 +47,9 @@ fun WeatherScreen(
 
     location?.let {
         Box(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.padding(8.dp)) {
+            Column(modifier = Modifier.padding(8.dp).fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = it.address,
                     color = AppTheme.colors.primaryTextColor,
@@ -51,30 +58,26 @@ fun WeatherScreen(
                             start = 16.dp,
                             end = 2.dp,
                             top = 2.dp,
-                            bottom = 16.dp
+                            bottom = 4.dp
                         ),
                     fontSize = 22.sp
                 )
 
                 Box {
-                     val isLoading by viewModel.isLoading.observeAsState(initial = true)
-                     val weatherForecastItems by viewModel.weatherForecastItems.observeAsState(initial = emptyList())
+                    val isLoading by viewModel.isLoading.observeAsState(initial = true)
+                    val weatherForecastItems by viewModel.weatherForecastItems.observeAsState(initial = emptyList())
 
                     WeatherForecastList(items = weatherForecastItems, viewModel = viewModel) { it ->
                         navController.navigate("${NavigationTree.Details.name}/${it}") {
                             popUpTo(NavigationTree.Details.name)
                         }
                     }
-                      if (isLoading) {
-                          LoadingBar()
-                      }
+                    if (isLoading) {
+                        LoadingBar()
+                    }
                 }
 
             }
-
-          //  if (showProgressbar) {
-          //      CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-          //  }
         }
     }
 }
@@ -131,23 +134,23 @@ fun WeatherForecastItemRow(
     }
 }
 
+@SuppressLint("NewApi")
 @Composable
 fun WeatherForecastItemDetails(
     item: DataItem,
     viewModel: LocationViewModel,
     modifier: Modifier
 ) {
-    Log.d(Constant.TAG, item.toString())
     Row(modifier = Modifier
-            .padding(
-                start = 20.dp,
-                end = 20.dp,
-                top = 20.dp,
-                bottom = 20.dp
-            )) {
+        .padding(
+            start = 20.dp,
+            end = 20.dp,
+            top = 20.dp,
+            bottom = 20.dp
+        )) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = item.datetime,
+                text = item.valid_date,
                 modifier = Modifier,
                 textAlign = TextAlign.Left,
                 color = AppTheme.colors.headerTextColor,
@@ -155,19 +158,48 @@ fun WeatherForecastItemDetails(
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
+            Text(
+                text = item.weather.description,
+                modifier = Modifier,
+                textAlign = TextAlign.Left,
+                color = AppTheme.colors.subtitleTextColor,
+                style = MaterialTheme.typography.subtitle1,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis
+            )
         }
 
-        Text(
-            text = item.max_temp.toString(),
-            modifier = Modifier,
-            textAlign = TextAlign.Right,
-            color = AppTheme.colors.headerTextColor,
-            style = MaterialTheme.typography.subtitle1,
-            maxLines = 3,
-            overflow = TextOverflow.Ellipsis
-        )
+        Row() {
+            Image(
+                painter = rememberImagePainter(IMAGE_URL+item.weather.icon+IMAGE_FORMAT),
+                contentDescription = "Weather",
+                modifier = Modifier.size(50.dp).padding(end = 5.dp)
+            )
+
+            Column() {
+                Text(
+                    text = item.high_temp.toString(),
+                    modifier = Modifier,
+                    textAlign = TextAlign.Right,
+                    color = AppTheme.colors.headerTextColor,
+                    style = MaterialTheme.typography.subtitle1,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = item.low_temp.toString(),
+                    modifier = Modifier,
+                    textAlign = TextAlign.Right,
+                    color = AppTheme.colors.headerTextColor,
+                    style = MaterialTheme.typography.subtitle1,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
     }
 }
+
 
 @Composable
 fun LoadingBar() {
@@ -178,3 +210,4 @@ fun LoadingBar() {
         CircularProgressIndicator()
     }
 }
+

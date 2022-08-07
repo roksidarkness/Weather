@@ -6,6 +6,7 @@ data class Colors(
     val primaryBackground: Color,
     val secondaryBackground: Color,
     val headerTextColor: Color,
+    val subtitleTextColor: Color,
     val primaryTextColor: Color,
     val backgroundColor: Color
 )
@@ -13,7 +14,8 @@ data class Colors(
 val lightPalette = Colors(
     primaryBackground = Color.White,
     secondaryBackground = Color(0XFFABCBFF),
-    headerTextColor = Color(0xFF3AA4E0),
-    primaryTextColor = Color(0xFF014A73),
+    headerTextColor = Color(0xFF505B5E),
+    subtitleTextColor = Color(0xFF98ACB3),
+    primaryTextColor = Color(0xFF345159),
     backgroundColor = Color(0XFFC0D7FC)
 )

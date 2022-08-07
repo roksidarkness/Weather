@@ -151,7 +151,7 @@ class LocationViewModel @Inject constructor(
                         Constant.API_KEY, it.latitude, it.longitude, PARAMETER_DAYS)
                     _weatherForecastItems.value = data.data
                     _isLoading.value = false
-                    Log.d(TAG, data.city_name)
+                    Log.d(TAG, data.data[0].weather.toString())
                 }
             }
         } catch (error: Exception) {
