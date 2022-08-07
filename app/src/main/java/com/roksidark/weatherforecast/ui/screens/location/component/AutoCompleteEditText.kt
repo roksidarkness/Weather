@@ -1,4 +1,4 @@
-package com.roksidark.weatherforecast.ui.component
+package com.roksidark.weatherforecast.ui.screens.location.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -124,10 +124,10 @@ fun QuerySearch(
                 keyboardType = KeyboardType.Text
             ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = AppTheme.colors.primaryBackground,
-                focusedLabelColor = AppTheme.colors.primaryBackground,
-                cursorColor = AppTheme.colors.primaryBackground,
-                unfocusedBorderColor = AppTheme.colors.primaryBackground)
+                focusedBorderColor = AppTheme.colors.primaryColor,
+                focusedLabelColor = AppTheme.colors.primaryColor,
+                cursorColor = AppTheme.colors.primaryColor,
+                unfocusedBorderColor = AppTheme.colors.primaryColor)
         )
 
     } else {
@@ -159,10 +159,10 @@ fun QuerySearch(
                 keyboardType = KeyboardType.Text
             ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = AppTheme.colors.primaryBackground,
-                focusedLabelColor = AppTheme.colors.primaryBackground,
-                cursorColor = AppTheme.colors.primaryBackground,
-                unfocusedBorderColor = AppTheme.colors.primaryBackground)
+                focusedBorderColor = AppTheme.colors.primaryColor,
+                focusedLabelColor = AppTheme.colors.primaryColor,
+                cursorColor = AppTheme.colors.primaryColor,
+                unfocusedBorderColor = AppTheme.colors.primaryColor)
         )
     }
 }

@@ -23,9 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.roksidark.weatherforecast.R
 import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
+import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_URL
@@ -58,7 +60,8 @@ fun WeatherScreen(
 
                 Box {
                     val isLoading by viewModel.isLoading.observeAsState(initial = true)
-                    val weatherForecastItems by viewModel.weatherForecastItems.observeAsState(initial = emptyList())
+                    val weatherForecastItems by viewModel.weatherForecastItems.observeAsState(
+                        initial = emptyList())
 
                     WeatherForecastList(items = weatherForecastItems, viewModel = viewModel) { it ->
                         navController.navigate("${NavigationTree.Details.name}/${it}") {
@@ -85,7 +88,8 @@ fun WeatherForecastList(
         contentPadding = PaddingValues(bottom = 16.dp)
     ) {
         items(items) { item ->
-            WeatherForecastItemRow(item = item, viewModel = viewModel, onItemClicked = onItemClicked)
+            WeatherForecastItemRow(item = item, viewModel = viewModel,
+                onItemClicked = onItemClicked)
         }
     }
 }
@@ -127,7 +131,6 @@ fun WeatherForecastItemRow(
     }
 }
 
-@SuppressLint("NewApi")
 @Composable
 fun WeatherForecastItemDetails(
     item: DataItem,
@@ -171,7 +174,8 @@ fun WeatherForecastItemDetails(
 
             Column() {
                 Text(
-                    text = item.high_temp.toString(),
+                    text = item.high_temp.toString() + " "+ textResource(id =
+                    R.string.label_weather_details_degree_temperature).toString(),
                     modifier = Modifier,
                     textAlign = TextAlign.Right,
                     color = AppTheme.colors.headerTextColor,
@@ -180,7 +184,8 @@ fun WeatherForecastItemDetails(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = item.low_temp.toString(),
+                    text = item.low_temp.toString() + " "+ textResource(id =
+                    R.string.label_weather_details_degree_temperature).toString(),
                     modifier = Modifier,
                     textAlign = TextAlign.Right,
                     color = AppTheme.colors.headerTextColor,
@@ -200,7 +205,7 @@ fun LoadingBar() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(color = AppTheme.colors.primaryColor)
     }
 }
 

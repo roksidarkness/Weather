@@ -3,4 +3,20 @@
 
     <!-- Location screen-->
     <string name="label_location_search">Search location</string>
+
+    <!-- Weather Details screen-->
+    <string name="label_weather_details_temperature_day">Day-time temperature: </string>
+    <string name="label_weather_details_temperature_night">Night-time temperature: </string>
+    <string name="label_weather_details_temperature_day_feel_like">"Feels Like" max temperature: </string>
+    <string name="label_weather_details_temperature_night_feel_like">"Feels Like" min temperature: </string>
+    <string name="label_weather_details_humidity">Humidity: </string>
+    <string name="label_weather_details_pressure">Pressure: </string>
+    <string name="label_weather_details_uv_index">UV index: </string>
+    <string name="label_weather_details_sunrise_time">Sunrise time: </string>
+    <string name="label_weather_details_sunset_time">Sunset time: </string>
+
+    <string name="label_weather_details_degree_temperature">℃</string>
+    <string name="label_weather_details_degree_humidity">%</string>
+    <string name="label_weather_details_degree_pressure">mb</string>
+    mb
 </resources>

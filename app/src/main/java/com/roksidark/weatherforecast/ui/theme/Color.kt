@@ -3,8 +3,8 @@ package com.roksidark.weatherforecast.ui.theme
 import androidx.compose.ui.graphics.Color
 
 data class Colors(
-    val primaryBackground: Color,
-    val secondaryBackground: Color,
+    val primaryColor: Color,
+    val secondaryBackgroundColor: Color,
     val headerTextColor: Color,
     val subtitleTextColor: Color,
     val primaryTextColor: Color,
@@ -12,8 +12,8 @@ data class Colors(
 )
 
 val lightPalette = Colors(
-    primaryBackground = Color.White,
-    secondaryBackground = Color(0XFFABCBFF),
+    primaryColor = Color.White,
+    secondaryBackgroundColor = Color(0XFFABCBFF),
     headerTextColor = Color(0xFF505B5E),
     subtitleTextColor = Color(0xFF98ACB3),
     primaryTextColor = Color(0xFF345159),
