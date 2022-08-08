@@ -125,7 +125,8 @@ fun QuerySearch(
                 focusedBorderColor = AppTheme.colors.primaryColor,
                 focusedLabelColor = AppTheme.colors.primaryColor,
                 cursorColor = AppTheme.colors.primaryColor,
-                unfocusedBorderColor = AppTheme.colors.primaryColor)
+                unfocusedBorderColor = AppTheme.colors.primaryTextColor,
+                textColor= AppTheme.colors.primaryTextColor)
         )
 
     } else {
@@ -159,7 +160,9 @@ fun QuerySearch(
                 focusedBorderColor = AppTheme.colors.primaryColor,
                 focusedLabelColor = AppTheme.colors.primaryColor,
                 cursorColor = AppTheme.colors.primaryColor,
-                unfocusedBorderColor = AppTheme.colors.primaryColor)
+                unfocusedBorderColor = AppTheme.colors.primaryColor,
+                textColor = AppTheme.colors.primaryTextColor,
+                disabledTextColor = AppTheme.colors.primaryTextColor)
         )
     }
 }

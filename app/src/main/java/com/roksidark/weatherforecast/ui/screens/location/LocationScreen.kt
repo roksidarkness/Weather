@@ -139,7 +139,9 @@ fun AddressEdit(
                 )
             }
         ) {
-            Text(it.address, fontSize = 14.sp)
+            Text(it.address,
+                fontSize = 16.sp,
+                color = AppTheme.colors.primaryTextColor)
         }
 
         Box {
