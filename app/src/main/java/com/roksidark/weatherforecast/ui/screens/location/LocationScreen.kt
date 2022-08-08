@@ -31,6 +31,7 @@ import com.roksidark.weatherforecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.location.component.AutoCompleteEditText
+import com.roksidark.weatherforecast.ui.screens.location.component.LoadingBar
 import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction
 import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
@@ -142,7 +143,7 @@ fun AddressEdit(
         }
 
         Box {
-            // val isLoading by viewModel.isLoading.observeAsState(initial = true)
+            val isLoading by viewModel.isLoadingLocation.observeAsState(initial = true)
             val addressItems by viewModel.addressItems.observeAsState(initial = emptyList())
 
             AddressList(addressItems = addressItems, viewModel = viewModel) { it ->
@@ -150,9 +151,9 @@ fun AddressEdit(
                     popUpTo(NavigationTree.Weather.name)
                 }
             }
-            //  if (isLoading) {
-            //      LoadingBar()
-            //  }
+            if (isLoading) {
+                  LoadingBar()
+            }
         }
     }
 

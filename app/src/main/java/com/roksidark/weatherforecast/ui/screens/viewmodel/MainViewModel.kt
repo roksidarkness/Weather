@@ -52,13 +52,24 @@ class MainViewModel @Inject constructor(
     private var _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private var _isLoadingLocation = MutableLiveData<Boolean>()
+    val isLoadingLocation: LiveData<Boolean> = _isLoadingLocation
+
     private var _weatherForecastItem = MutableLiveData<DataItem>()
     val weatherForecastItem: LiveData<DataItem> = _weatherForecastItem
 
-    init{
+    init {
         viewModelScope.launch {
-            useCases.getLocationsLocal.invoke().collect {
-                _addressItems.value = it
+            try {
+                useCases.getLocationsLocal.invoke().collect {
+                    _addressItems.value = it
+                    _isLoadingLocation.value = false
+                }
+            } catch (error: Exception) {
+                error.localizedMessage?.let {
+                    Log.d(TAG, it)
+                    _isLoadingLocation.value = false
+                }
             }
         }
     }

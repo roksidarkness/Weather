@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,8 +24,9 @@ import coil.compose.rememberImagePainter
 import com.roksidark.weatherforecast.R
 import com.roksidark.weatherforecast.data.model.weather.DataItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
-import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
+import com.roksidark.weatherforecast.ui.screens.location.component.LoadingBar
 import com.roksidark.weatherforecast.ui.screens.textResource
+import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_URL
@@ -195,17 +195,6 @@ fun WeatherForecastItemDetails(
                 )
             }
         }
-    }
-}
-
-
-@Composable
-fun LoadingBar() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(color = AppTheme.colors.primaryColor)
     }
 }
 
