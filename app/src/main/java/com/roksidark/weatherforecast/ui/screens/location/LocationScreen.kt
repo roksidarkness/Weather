@@ -26,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.roksidark.weatherforecast.R
-import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
+import com.roksidark.weatherforecast.data.db.entity.Location
+import com.roksidark.weatherforecast.data.model.location.AddressItem
+import com.roksidark.weatherforecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.location.component.AutoCompleteEditText
 import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction

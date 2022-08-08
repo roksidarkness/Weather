@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.roksidark.weatherforecast.R
-import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
+import com.roksidark.weatherforecast.data.model.weather.DataItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
 import com.roksidark.weatherforecast.ui.screens.textResource

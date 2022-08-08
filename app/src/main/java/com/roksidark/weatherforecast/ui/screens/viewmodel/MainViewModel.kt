@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.roksidark.weatherforecast.BuildConfig
 import com.roksidark.weatherforecast.R
-import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
-import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
-import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
+import com.roksidark.weatherforecast.data.db.entity.Location
+import com.roksidark.weatherforecast.data.model.location.AddressItem
+import com.roksidark.weatherforecast.data.model.location.PlaceItem
+import com.roksidark.weatherforecast.data.model.weather.DataItem
+import com.roksidark.weatherforecast.domain.usecase.WeatherUseCases
 import com.roksidark.weatherforecast.utils.Constant.PARAMETER_DAYS
 import com.roksidark.weatherforecast.utils.Constant.TAG
 import com.roksidark.weatherforecast.utils.Result

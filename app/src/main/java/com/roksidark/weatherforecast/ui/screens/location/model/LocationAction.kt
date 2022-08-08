@@ -1,6 +1,6 @@
 package com.roksidark.weatherforecast.ui.screens.location.model
 
-import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
+import com.roksidark.weatherforecast.data.model.location.PlaceItem
 
 sealed class LocationAction {
     object OnLocationAutoCompleteDone : LocationAction()
