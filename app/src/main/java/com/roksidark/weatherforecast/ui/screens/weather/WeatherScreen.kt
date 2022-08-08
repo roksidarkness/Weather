@@ -25,7 +25,7 @@ import coil.compose.rememberImagePainter
 import com.roksidark.weatherforecast.R
 import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
 import com.roksidark.weatherforecast.navigation.NavigationTree
-import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
+import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
 import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
@@ -35,7 +35,7 @@ import com.roksidark.weatherforecast.utils.formatDate
 @Composable
 fun WeatherScreen(
     locationAddress: String,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     navController: NavController
 ) {
     val location by viewModel.location.observeAsState()
@@ -81,7 +81,7 @@ fun WeatherScreen(
 @Composable
 fun WeatherForecastList(
     items: List<DataItem>,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     LazyColumn(
@@ -97,7 +97,7 @@ fun WeatherForecastList(
 @Composable
 fun WeatherForecastItemRow(
     item: DataItem,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     Card(
@@ -134,7 +134,7 @@ fun WeatherForecastItemRow(
 @Composable
 fun WeatherForecastItemDetails(
     item: DataItem,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     modifier: Modifier
 ) {
     Row(modifier = Modifier

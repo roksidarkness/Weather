@@ -11,14 +11,14 @@ import androidx.navigation.compose.rememberNavController
 import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.details.DetailsScreen
 import com.roksidark.weatherforecast.ui.screens.location.LocationScreen
-import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
+import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
 import com.roksidark.weatherforecast.ui.screens.weather.WeatherScreen
 
 @Composable
 fun ApplicationScreen() {
 
     val navController = rememberNavController()
-    val viewModelLocation = hiltViewModel<LocationViewModel>()
+    val viewModelLocation = hiltViewModel<MainViewModel>()
 
     NavHost(navController = navController, startDestination = NavigationTree.Location.name) {
 

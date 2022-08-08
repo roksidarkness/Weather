@@ -4,6 +4,7 @@ data class WeatherUseCases(
     val getWeatherForecastRemotely: GetWeatherRemotely,
     val saveLocationLocal: SaveLocationLocal,
     val getLocationsLocal: GetLocationsLocal,
-    val getLocationLocal: GetLocationLocal
-    //TODO add RemotePlaceRepository
+    val getLocationLocal: GetLocationLocal,
+    val getLocationFromPlace: GetLocationFromPlace,
+    val getPlacePredictions: GetPlacePredictions
 )

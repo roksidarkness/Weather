@@ -1,4 +1,4 @@
-package com.roksidark.weatherforecast.ui.screens.location
+package com.roksidark.weatherforecast.ui.screens.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -12,10 +12,7 @@ import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.weather.DataItem
-import com.roksidark.weatherforecast.feature_forecast.data.model.weather.WeatherForecastItem
-import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.WeatherUseCases
-import com.roksidark.weatherforecast.utils.Constant
 import com.roksidark.weatherforecast.utils.Constant.PARAMETER_DAYS
 import com.roksidark.weatherforecast.utils.Constant.TAG
 import com.roksidark.weatherforecast.utils.Result
@@ -27,10 +24,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LocationViewModel @Inject constructor(
-    //TODO remove remotePlaceRepository
+class MainViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val remotePlaceRepository: RemotePlaceRepositoryImpl,
     private val useCases: WeatherUseCases
 ) : ViewModel() {
 
@@ -72,7 +67,7 @@ class LocationViewModel @Inject constructor(
         _address.value.streetAddress = query
         viewModelScope.launch {
 
-            when (val placePredictionsResult = remotePlaceRepository.getPlacePredictions(query)) {
+            when (val placePredictionsResult = useCases.getPlacePredictions.getPlacePredictions(query)) {
                 is Result.Success -> {
                     val placePredictions = placePredictionsResult.data
                     _placePredictions.value = placePredictions
@@ -96,7 +91,7 @@ class LocationViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            when (val addressResult = remotePlaceRepository.getLocationFromPlace(placeItem.id!!)) {
+            when (val addressResult = useCases.getLocationFromPlace.getLocationFromPlace(placeItem.id!!)) {
 
                 is Result.Success -> {
                     val addressFromPlace = addressResult.data

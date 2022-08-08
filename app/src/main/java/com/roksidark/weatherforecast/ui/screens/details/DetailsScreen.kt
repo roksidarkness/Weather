@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.roksidark.weatherforecast.R
-import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
+import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
 import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant
@@ -23,7 +23,7 @@ import com.roksidark.weatherforecast.utils.formatTime
 @Composable
 fun DetailsScreen(
     selectedWeather: String,
-    viewModel: LocationViewModel
+    viewModel: MainViewModel
 ) {
     val weather by viewModel.weatherForecastItem.observeAsState()
 

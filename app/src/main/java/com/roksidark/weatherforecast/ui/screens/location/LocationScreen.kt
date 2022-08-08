@@ -33,6 +33,7 @@ import com.roksidark.weatherforecast.navigation.NavigationTree
 import com.roksidark.weatherforecast.ui.screens.location.component.AutoCompleteEditText
 import com.roksidark.weatherforecast.ui.screens.location.model.LocationAction
 import com.roksidark.weatherforecast.ui.screens.textResource
+import com.roksidark.weatherforecast.ui.screens.viewmodel.MainViewModel
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.TAG
 import kotlinx.coroutines.launch
@@ -40,7 +41,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LocationScreen(
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     navController: NavController
 ) {
     val scope = rememberCoroutineScope()
@@ -97,7 +98,7 @@ fun LocationScreen(
 fun AddressEdit(
     addressItem: AddressItem,
     modifier: Modifier,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     navController: NavController,
     addressPlaceItemPredictions: List<PlaceItem>,
     locationAction: (LocationAction) -> Unit
@@ -161,7 +162,7 @@ fun AddressEdit(
 @Composable
 fun AddressList(
     addressItems: List<Location>,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     LazyColumn(
@@ -176,7 +177,7 @@ fun AddressList(
 @Composable
 fun AddressItemRow(
     item: Location,
-    viewModel: LocationViewModel,
+    viewModel: MainViewModel,
     onItemClicked: (id: String) -> Unit = { }
 ) {
     Card(

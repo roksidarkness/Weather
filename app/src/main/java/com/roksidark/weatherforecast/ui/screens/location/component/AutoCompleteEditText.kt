@@ -40,7 +40,6 @@ fun <T> AutoCompleteEditText(
     val view = LocalView.current
     val lazyListState = rememberLazyListState()
 
-
     LazyColumn(
         state = lazyListState,
         modifier = modifier.heightIn(max = TextFieldDefaults.MinHeight * 6)
@@ -62,7 +61,6 @@ fun <T> AutoCompleteEditText(
                 }
             )
         }
-
         if (predictions.count() > 0) {
             items(predictions) { prediction ->
                 Row(
@@ -149,7 +147,6 @@ fun QuerySearch(
                         Icon(imageVector = Icons.Filled.Close, contentDescription = "Clear")
                     }
                 }
-
             },
             keyboardActions = KeyboardActions(onDone = {
                 onDoneActionClick()

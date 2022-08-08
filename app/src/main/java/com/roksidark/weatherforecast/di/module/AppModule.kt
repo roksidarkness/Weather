@@ -8,9 +8,11 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.roksidark.weatherforecast.WeatherApplication
 import com.roksidark.weatherforecast.feature_forecast.data.db.WeatherDatabase
 import com.roksidark.weatherforecast.feature_forecast.data.repository.LocalRepositoryImpl
+import com.roksidark.weatherforecast.feature_forecast.data.repository.RemotePlaceRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemoteRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.data.rest.WeatherApi
 import com.roksidark.weatherforecast.feature_forecast.domain.repository.LocalRepository
+import com.roksidark.weatherforecast.feature_forecast.domain.repository.RemotePlaceRepository
 import com.roksidark.weatherforecast.feature_forecast.domain.repository.RemoteRepository
 import com.roksidark.weatherforecast.feature_forecast.domain.usecase.*
 import com.roksidark.weatherforecast.utils.Constant
@@ -62,6 +64,7 @@ object AppModule {
     fun providesRepository(weatherApi: WeatherApi): RemoteRepository =
         RemoteRepositoryImpl(weatherApi)
 
+
     @Provides
     @Singleton
     fun provideDatabase(
@@ -79,21 +82,31 @@ object AppModule {
     fun provideLocationRepository(database: WeatherDatabase): LocalRepository =
         LocalRepositoryImpl(database)
 
-    @Singleton
-    @Provides
-    fun provideWeatherUseCase(remoteRepository: RemoteRepository, localRepository: LocalRepository): WeatherUseCases {
-        return WeatherUseCases(
-            getWeatherForecastRemotely = GetWeatherRemotely(remoteRepository),
-            saveLocationLocal = SaveLocationLocal(localRepository),
-            getLocationsLocal = GetLocationsLocal(localRepository),
-            getLocationLocal = GetLocationLocal(localRepository)
-        )
-    }
-
     @Provides
     @Singleton
     fun providePlaceClient(application: Application): PlacesClient =
         Places.createClient(application.applicationContext)
+
+    @Singleton
+    @Provides
+    fun providePlaceRepository(placesClient: PlacesClient): RemotePlaceRepository =
+        RemotePlaceRepositoryImpl(placesClient)
+
+    @Singleton
+    @Provides
+    fun provideWeatherUseCase(remoteRepository: RemoteRepository,
+                              localRepository: LocalRepository,
+                              remotePlaceRepository: RemotePlaceRepository
+    ): WeatherUseCases {
+        return WeatherUseCases(
+            getWeatherForecastRemotely = GetWeatherRemotely(remoteRepository),
+            saveLocationLocal = SaveLocationLocal(localRepository),
+            getLocationsLocal = GetLocationsLocal(localRepository),
+            getLocationLocal = GetLocationLocal(localRepository),
+            getLocationFromPlace = GetLocationFromPlace(remotePlaceRepository),
+            getPlacePredictions = GetPlacePredictions(remotePlaceRepository)
+        )
+    }
 
     @Singleton
     @Provides
