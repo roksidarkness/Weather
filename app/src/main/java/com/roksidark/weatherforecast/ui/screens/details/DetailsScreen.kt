@@ -26,7 +26,6 @@ fun DetailsScreen(
     viewModel: LocationViewModel
 ) {
     val weather by viewModel.weatherForecastItem.observeAsState()
-    val location by viewModel.locationCurrent.observeAsState()
 
     weather?.let{
             item ->
@@ -90,17 +89,15 @@ fun DetailsScreen(
                         textLabel = textResource(id =
                         R.string.label_weather_details_uv_index).toString())
 
-                    location?.let {
-                        TextDetails(text = formatTime(item.sunrise_ts.toLong()),
-                            degree = "",
-                            textLabel = textResource(id =
-                            R.string.label_weather_details_sunrise_time).toString())
+                    TextDetails(text = formatTime(item.sunrise_ts.toLong()),
+                        degree = "",
+                        textLabel = textResource(id =
+                        R.string.label_weather_details_sunrise_time).toString())
 
-                        TextDetails(text = formatTime(item.sunset_ts.toLong()),
-                            degree = "",
-                            textLabel = textResource(id =
-                            R.string.label_weather_details_sunset_time).toString())
-                    }
+                    TextDetails(text = formatTime(item.sunset_ts.toLong()),
+                        degree = "",
+                        textLabel = textResource(id =
+                        R.string.label_weather_details_sunset_time).toString())
 
                 }
             }

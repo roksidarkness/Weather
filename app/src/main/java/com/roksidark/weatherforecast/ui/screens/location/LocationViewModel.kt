@@ -1,11 +1,13 @@
 package com.roksidark.weatherforecast.ui.screens.location
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.roksidark.weatherforecast.BuildConfig
+import com.roksidark.weatherforecast.R
 import com.roksidark.weatherforecast.feature_forecast.data.db.entity.Location
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.AddressItem
 import com.roksidark.weatherforecast.feature_forecast.data.model.location.PlaceItem
@@ -18,6 +20,7 @@ import com.roksidark.weatherforecast.utils.Constant.PARAMETER_DAYS
 import com.roksidark.weatherforecast.utils.Constant.TAG
 import com.roksidark.weatherforecast.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -26,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationViewModel @Inject constructor(
     //TODO remove remotePlaceRepository
+    @ApplicationContext private val context: Context,
     private val remotePlaceRepository: RemotePlaceRepositoryImpl,
     private val useCases: WeatherUseCases
 ) : ViewModel() {
@@ -55,9 +59,6 @@ class LocationViewModel @Inject constructor(
 
     private var _weatherForecastItem = MutableLiveData<DataItem>()
     val weatherForecastItem: LiveData<DataItem> = _weatherForecastItem
-
-    private var _locationCurrent = MutableLiveData<WeatherForecastItem>()
-    val locationCurrent: LiveData<WeatherForecastItem> = _locationCurrent
 
     init{
         viewModelScope.launch {
@@ -149,20 +150,22 @@ class LocationViewModel @Inject constructor(
     }
 
     private fun getWeatherForecastList() {
-        try {
+
             _location.value?.let {
                 viewModelScope.launch {
-                    val data = useCases.getWeatherForecastRemotely.invoke(
-                        BuildConfig.API_KEY, it.latitude, it.longitude, PARAMETER_DAYS)
-                    _weatherForecastItems.value = data.data
-                    _locationCurrent.value = data
-                    _isLoading.value = false
-                    Log.d(TAG, "Timezone: " + data.timezone)
+                    try {
+                        val data = useCases.getWeatherForecastRemotely.invoke(
+                            BuildConfig.API_KEY, it.latitude, it.longitude, PARAMETER_DAYS)
+                        _weatherForecastItems.value = data.data
+                        _isLoading.value = false
+                    } catch (error: Exception) {
+                        error.localizedMessage?.let { Log.d(TAG, it) }
+                        _isLoading.value = false
+                        _location.value?.address =
+                            context.getString(R.string.label_location_check_network)
+                    }
                 }
             }
-        } catch (error: Exception) {
-            error.localizedMessage?.let { Log.d(TAG, it) }
-        }
     }
 
     fun getWeatherDetails(date: String) {

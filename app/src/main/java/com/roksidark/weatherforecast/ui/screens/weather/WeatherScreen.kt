@@ -34,7 +34,7 @@ import com.roksidark.weatherforecast.utils.formatDate
 
 @Composable
 fun WeatherScreen(
-    id: String,
+    locationAddress: String,
     viewModel: LocationViewModel,
     navController: NavController
 ) {

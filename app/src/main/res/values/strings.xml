@@ -3,6 +3,7 @@
 
     <!-- Location screen-->
     <string name="label_location_search">Search location</string>
+    <string name="label_location_check_network">Check network</string>
 
     <!-- Weather Details screen-->
     <string name="label_weather_details_temperature_day">Day-time temperature: </string>
@@ -18,5 +19,5 @@
     <string name="label_weather_details_degree_temperature">℃</string>
     <string name="label_weather_details_degree_humidity">%</string>
     <string name="label_weather_details_degree_pressure">mb</string>
-    mb
+
 </resources>

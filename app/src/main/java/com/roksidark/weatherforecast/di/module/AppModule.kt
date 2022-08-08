@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.roksidark.weatherforecast.WeatherApplication
 import com.roksidark.weatherforecast.feature_forecast.data.db.WeatherDatabase
 import com.roksidark.weatherforecast.feature_forecast.data.repository.LocalRepositoryImpl
 import com.roksidark.weatherforecast.feature_forecast.data.repository.RemoteRepositoryImpl
@@ -93,4 +94,8 @@ object AppModule {
     @Singleton
     fun providePlaceClient(application: Application): PlacesClient =
         Places.createClient(application.applicationContext)
+
+    @Singleton
+    @Provides
+    fun provideApplicationContext() = WeatherApplication()
 }

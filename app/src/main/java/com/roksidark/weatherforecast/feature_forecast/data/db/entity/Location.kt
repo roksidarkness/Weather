@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class Location(
     @PrimaryKey
     val id: String,
-    val address: String,
+    var address: String,
     val latitude: String,
     val longitude: String
 ) : Parcelable
