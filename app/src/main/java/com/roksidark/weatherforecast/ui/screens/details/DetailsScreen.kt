@@ -17,7 +17,7 @@ import com.roksidark.weatherforecast.ui.screens.location.LocationViewModel
 import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant
-import com.roksidark.weatherforecast.utils.getTime
+import com.roksidark.weatherforecast.utils.formatTime
 
 
 @Composable
@@ -49,25 +49,25 @@ fun DetailsScreen(
                                 Constant.IMAGE_FORMAT),
                         contentDescription = "Weather"
                     )
-                    TextDetails(text = item.high_temp.toString(),
+                    TextDetails(text = item.high_temp.toInt().toString(),
                         degree = textResource(id =
                         R.string.label_weather_details_degree_temperature).toString(),
                         textLabel = textResource(id =
                         R.string.label_weather_details_temperature_day).toString())
 
-                    TextDetails(text = item.low_temp.toString(),
+                    TextDetails(text = item.low_temp.toInt().toString(),
                         degree = textResource(id =
                         R.string.label_weather_details_degree_temperature).toString(),
                         textLabel = textResource(id =
                         R.string.label_weather_details_temperature_night).toString())
 
-                    TextDetails(text = item.app_max_temp.toString(),
+                    TextDetails(text = item.app_max_temp.toInt().toString(),
                         degree = textResource(id =
                         R.string.label_weather_details_degree_temperature).toString(),
                         textLabel = textResource(id =
                         R.string.label_weather_details_temperature_day_feel_like).toString())
 
-                    TextDetails(text = item.app_min_temp.toString(),
+                    TextDetails(text = item.app_min_temp.toInt().toString(),
                         degree = textResource(id =
                         R.string.label_weather_details_degree_temperature).toString(),
                         textLabel = textResource(id =
@@ -79,24 +79,24 @@ fun DetailsScreen(
                         textLabel = textResource(id =
                         R.string.label_weather_details_humidity).toString())
 
-                    TextDetails(text = item.pres.toString(),
+                    TextDetails(text = item.pres.toInt().toString(),
                         degree = textResource(id =
                         R.string.label_weather_details_degree_pressure).toString(),
                         textLabel = textResource(id =
                         R.string.label_weather_details_pressure).toString())
 
-                    TextDetails(text = item.uv.toString(),
+                    TextDetails(text = item.uv.toInt().toString(),
                         degree ="",
                         textLabel = textResource(id =
                         R.string.label_weather_details_uv_index).toString())
 
                     location?.let {
-                        TextDetails(text = getTime(it.timezone, item.sunrise_ts.toLong()),
+                        TextDetails(text = formatTime(item.sunrise_ts.toLong()),
                             degree = "",
                             textLabel = textResource(id =
                             R.string.label_weather_details_sunrise_time).toString())
 
-                        TextDetails(text = getTime(it.timezone, item.sunset_ts.toLong()),
+                        TextDetails(text = formatTime(item.sunset_ts.toLong()),
                             degree = "",
                             textLabel = textResource(id =
                             R.string.label_weather_details_sunset_time).toString())

@@ -12,16 +12,11 @@ import com.google.android.libraries.places.api.Places
 import com.roksidark.weatherforecast.ui.screens.ApplicationScreen
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.ui.theme.WeatherForecastApplicationTheme
-import com.roksidark.weatherforecast.utils.getTime
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.format.TextStyle
-import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity()  {
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,7 +42,6 @@ class MainActivity : ComponentActivity()  {
     }
 
     private fun initPlaces(){
-
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, BuildConfig.PLACE_API_KEY)
         }

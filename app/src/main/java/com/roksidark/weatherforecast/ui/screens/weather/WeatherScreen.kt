@@ -30,7 +30,7 @@ import com.roksidark.weatherforecast.ui.screens.textResource
 import com.roksidark.weatherforecast.ui.theme.AppTheme
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_FORMAT
 import com.roksidark.weatherforecast.utils.Constant.IMAGE_URL
-import com.roksidark.weatherforecast.utils.getDayOfWeek
+import com.roksidark.weatherforecast.utils.formatDate
 
 @Composable
 fun WeatherScreen(
@@ -146,7 +146,7 @@ fun WeatherForecastItemDetails(
         )) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = getDayOfWeek(item.valid_date) + ", "+ item.valid_date,
+                text = formatDate(item.valid_date),
                 modifier = Modifier,
                 textAlign = TextAlign.Left,
                 color = AppTheme.colors.headerTextColor,
@@ -174,7 +174,7 @@ fun WeatherForecastItemDetails(
 
             Column() {
                 Text(
-                    text = item.high_temp.toString() + " "+ textResource(id =
+                    text = item.high_temp.toInt().toString() + " "+ textResource(id =
                     R.string.label_weather_details_degree_temperature).toString(),
                     modifier = Modifier,
                     textAlign = TextAlign.Right,
@@ -184,7 +184,7 @@ fun WeatherForecastItemDetails(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = item.low_temp.toString() + " "+ textResource(id =
+                    text = item.low_temp.toInt().toString() + " "+ textResource(id =
                     R.string.label_weather_details_degree_temperature).toString(),
                     modifier = Modifier,
                     textAlign = TextAlign.Right,
