@@ -46,7 +46,7 @@ fun WeatherScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = it.address,
+                    text = locationAddress,
                     color = AppTheme.colors.primaryTextColor,
                     modifier = Modifier
                         .padding(

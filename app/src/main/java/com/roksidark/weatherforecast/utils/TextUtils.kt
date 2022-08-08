@@ -13,6 +13,12 @@ fun formatDate(date: String): String{
             LocalDate.parse(date).month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH).lowercase()
 }
 
+fun formatDateFull(date: String): String{
+    return LocalDate.parse(date).dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH) + ", "+
+            LocalDate.parse(date).dayOfMonth.toString() + " "+
+            LocalDate.parse(date).month.getDisplayName(TextStyle.FULL, Locale.ENGLISH).lowercase()
+}
+
 fun formatTime(timeInMillis: Long): String {
     var time = Date(timeInMillis * 1000)
     val dateFormat = SimpleDateFormat(TIME_FORMAT, Locale.getDefault())

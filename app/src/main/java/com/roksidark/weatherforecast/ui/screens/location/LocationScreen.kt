@@ -189,7 +189,7 @@ fun AddressItemRow(
             .padding(start = 16.dp, end = 16.dp, top = 16.dp)
             .clickable {
                 viewModel.getLocation(item.id)
-                onItemClicked(item.id)
+                onItemClicked(item.address)
             }
     ) {
         Row(modifier = Modifier.animateContentSize()) {
