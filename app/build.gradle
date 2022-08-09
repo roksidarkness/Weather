@@ -20,7 +20,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.roksidark.weatherforecast.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -70,16 +70,15 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.18.0"
     implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
 
+    //Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.room:room-common:2.4.3'
     kapt "com.google.dagger:hilt-compiler:2.38.1"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
@@ -119,10 +118,29 @@ dependencies {
     kapt("androidx.room:room-compiler:2.4.2")
     implementation("androidx.room:room-ktx:2.4.2")
 
+    // Local Unit Tests
     testImplementation 'junit:junit:4.13.2'
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+    testImplementation 'org.mockito:mockito-inline:2.21.0'
+    testImplementation 'org.mockito:mockito-core:3.10.0'
+    testImplementation "com.google.truth:truth:1.0.1"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.8'
+
+    // Instrumented Unit Tests
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "com.google.truth:truth:1.0.1"
+    androidTestImplementation 'org.mockito:mockito-android:3.10.0'
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.34.1-beta")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.34.1-beta")
+
 }
