@@ -42,7 +42,9 @@ fun WeatherScreen(
 
     location?.let {
         Box(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.padding(8.dp).fillMaxSize(),
+            Column(modifier = Modifier.padding(start = 8.dp,
+                end = 8.dp,
+                top = 8.dp).fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(

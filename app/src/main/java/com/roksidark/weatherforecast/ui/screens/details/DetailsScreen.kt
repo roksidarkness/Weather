@@ -59,8 +59,8 @@ fun DetailsScreen(
                         Image(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .size(150.dp)
-                                .padding(bottom = 30.dp),
+                                .size(130.dp)
+                                .padding(bottom = 15.dp),
                             painter = rememberImagePainter(
                                 Constant.IMAGE_URL + item.weather.icon +
                                         Constant.IMAGE_FORMAT
@@ -186,10 +186,10 @@ fun TextDetails(
             color = AppTheme.colors.subtitleTextColor,
             modifier = Modifier
                 .padding(
-                    start = 16.dp,
+                    start = 6.dp,
                     end = 2.dp,
                     top = 2.dp,
-                    bottom = 16.dp
+                    bottom = 6.dp
                 ),
             fontSize = 16.sp
         )
@@ -201,7 +201,7 @@ fun TextDetails(
                     start = 4.dp,
                     end = 2.dp,
                     top = 2.dp,
-                    bottom = 16.dp
+                    bottom = 6.dp
                 ),
             fontSize = 16.sp
         )
